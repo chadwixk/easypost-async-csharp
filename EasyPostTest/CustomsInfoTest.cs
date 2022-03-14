@@ -9,6 +9,7 @@
 using System;
 using EasyPost;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyPostTest
@@ -26,9 +27,9 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieve()
+        public async Task TestCreateAndRetrieve()
         {
-            var info = _client.CreateCustomsInfo(new CustomsInfo {
+            var info = await _client.CreateCustomsInfo(new CustomsInfo {
                 CustomsCertify = true,
                 EelPfc = "NOEEI 30.37(a)",
                 CustomsItems = new List<CustomsItem> {
@@ -39,9 +40,9 @@ namespace EasyPostTest
                         OriginCountry = "US",
                     },
                 },
-            }).Result;
+            });
 
-            var retrieved = _client.GetCustomsInfo(info.Id).Result;
+            var retrieved = await _client.GetCustomsInfo(info.Id);
             Assert.AreEqual(info.Id, retrieved.Id);
             Assert.IsNotNull(retrieved.CustomsItems);
         }

@@ -38,7 +38,7 @@ Error handling for task based Async operations is different than normal operatio
 ```cs
 using EasyPost;
 
-var address = _client.GetAddress("not-an-id").Result;
+var address = await _client.GetAddress("not-an-id");
 if (address.RequestError != null) {
     var requestError = address.RequestError;
     var statusCode = requestError.StatusCode;
@@ -199,7 +199,7 @@ using EasyPost;
 
 var batch = client.GetBatch(batch.Id);
 
-batch = _client.GenerateLabelForBatch(batch.Id, "zpl"); // populates batch.label_url asynchronously
+batch = await _client.GenerateLabelForBatch(batch.Id, "zpl"); // populates batch.label_url asynchronously
 ```
 
 Consume the subsequent `batch.Updated` webhook to process further.

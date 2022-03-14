@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,9 +25,9 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestList()
+        public async Task TestList()
         {
-            var keys = _client.GetApiKeys().Result;
+            var keys = await _client.GetApiKeys();
             Assert.AreEqual(keys.Count, 2);
         }
     }

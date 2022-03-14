@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -24,30 +25,30 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieve()
+        public async Task TestCreateAndRetrieve()
         {
-            var report = _client.CreateReport("shipment", new Report {
+            var report = await _client.CreateReport("shipment", new Report {
                 // Unfortunately, this can only be run once a day. If you need to test more than that change the date here.
                 //EndDate = DateTime.Parse("2016-06-01"),
-            }).Result;
+            });
             Assert.IsNotNull(report.Id);
 
-            var retrieved = _client.GetReport("shipment", report.Id).Result;
+            var retrieved = await _client.GetReport("shipment", report.Id);
             Assert.AreEqual(report.Id, retrieved.Id);
 
-            retrieved = _client.GetReport(report.Id).Result;
+            retrieved = await _client.GetReport(report.Id);
             Assert.AreEqual(report.Id, retrieved.Id);
         }
 
         [TestMethod]
-        public void TestList()
+        public async Task TestList()
         {
-            var reportList = _client.ListReports("shipment", new ReportListOptions {
+            var reportList = await _client.ListReports("shipment", new ReportListOptions {
                 PageSize = 1,
-            }).Result;
+            });
             Assert.AreNotEqual(0, reportList.Reports.Count);
 
-            var nextReportList = reportList.Next(_client).Result;
+            var nextReportList = await reportList.Next(_client);
             Assert.AreNotEqual(reportList.Reports[0].Id, nextReportList.Reports[0].Id);
         }
     }

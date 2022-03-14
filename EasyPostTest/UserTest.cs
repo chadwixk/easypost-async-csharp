@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -24,31 +25,31 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestRetrieveSelf()
+        public async Task TestRetrieveSelf()
         {
-            var user = _client.GetUser().Result;
+            var user = await _client.GetUser();
             Assert.IsNotNull(user.Id);
 
-            var user2 = _client.GetUser(user.Id).Result;
+            var user2 = await _client.GetUser(user.Id);
             Assert.AreEqual(user.Id, user2.Id);
         }
 
         [TestMethod]
-        public void TestCrud()
+        public async Task TestCrud()
         {
-            var user = _client.CreateUser("Test Name").Result;
+            var user = await _client.CreateUser("Test Name");
             Assert.AreEqual(user.ApiKeys.Count, 2);
             Assert.IsNotNull(user.Id);
 
-            var other = _client.GetUser(user.Id).Result;
+            var other = await _client.GetUser(user.Id);
             Assert.AreEqual(user.Id, other.Id);
 
             user.Name = "NewTest Name";
-            user = _client.UpdateUser(user).Result;
+            user = await _client.UpdateUser(user);
             Assert.AreEqual("NewTest Name", user.Name);
 
             _client.DestroyUser(user.Id).Wait();
-            user = _client.GetUser(user.Id).Result;
+            user = await _client.GetUser(user.Id);
             Assert.IsNotNull(user.RequestError);
             Assert.AreEqual(user.RequestError.Code, "NOT_FOUND");
         }

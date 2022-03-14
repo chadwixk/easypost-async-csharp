@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,21 +25,21 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestScanFormList()
+        public async Task TestScanFormList()
         {
-            var scanFormList = _client.ListScanForms(new ScanFormListOptions {
+            var scanFormList = await _client.ListScanForms(new ScanFormListOptions {
                 PageSize = 1,
-            }).Result;
+            });
             Assert.AreNotEqual(null, scanFormList.ScanForms[0].BatchId);
             Assert.AreNotEqual(0, scanFormList.ScanForms.Count);
-            var nextScanFormList = scanFormList.Next(_client).Result;
+            var nextScanFormList = await scanFormList.Next(_client);
             Assert.AreNotEqual(scanFormList.ScanForms[0].Id, nextScanFormList.ScanForms[0].Id);
         }
 
         [TestMethod]
-        public void TestGetScanForm()
+        public async Task TestGetScanForm()
         {
-            var scanForm = _client.GetScanForm("sf_e35ae7fc59bb4482ae32efc663267104").Result;
+            var scanForm = await _client.GetScanForm("sf_e35ae7fc59bb4482ae32efc663267104");
             Assert.AreEqual(scanForm.Id, "sf_e35ae7fc59bb4482ae32efc663267104");
         }
     }

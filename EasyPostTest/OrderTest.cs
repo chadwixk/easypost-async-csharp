@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -73,34 +74,34 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieveOrder()
+        public async Task TestCreateAndRetrieveOrder()
         {
-            var order = _client.CreateOrder(_testOrder).Result;
+            var order = await _client.CreateOrder(_testOrder);
 
             Assert.IsNotNull(order.Id);
             Assert.AreEqual(order.Reference, "OrderRef");
 
-            var retrieved = _client.GetOrder(order.Id).Result;
+            var retrieved = await _client.GetOrder(order.Id);
             Assert.AreEqual(order.Id, retrieved.Id);
         }
 
         [TestMethod]
-        public void TestBuyOrder()
+        public async Task TestBuyOrder()
         {
-            var order = _client.CreateOrder(_testOrder).Result;
-            order = _client.BuyOrder(order.Id, "USPS", "Priority").Result;
+            var order = await _client.CreateOrder(_testOrder);
+            order = await _client.BuyOrder(order.Id, "USPS", "Priority");
             Assert.IsNotNull(order.Shipments[0].PostageLabel);
         }
 
         [TestMethod]
-        public void TestOrderCarrierAccounts()
+        public async Task TestOrderCarrierAccounts()
         {
             _testOrder.CarrierAccounts = new List<CarrierAccount> {
                 new CarrierAccount {
                     Id = "ca_7642d249fdcf47bcb5da9ea34c96dfcf",
                 }
             };
-            var order = _client.CreateOrder(_testOrder).Result;
+            var order = await _client.CreateOrder(_testOrder);
 
             Assert.IsNotNull(order.Id);
             Assert.AreEqual(order.Reference, "OrderRef");
@@ -109,7 +110,7 @@ namespace EasyPostTest
             Assert.AreEqual(3, order.Rates.Count);
 
             _testOrder.CarrierAccounts = null;
-            var largeOrder = _client.CreateOrder(_testOrder).Result;
+            var largeOrder = await _client.CreateOrder(_testOrder);
             Assert.IsTrue(order.Rates.Count < largeOrder.Rates.Count);
         }
     }

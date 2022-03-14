@@ -8,6 +8,7 @@
 
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,10 +26,10 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestRetrieve()
+        public async Task TestRetrieve()
         {
             // Events are archived after some time. Lets at least make sure we get a 404.
-            var e = _client.GetEvent("evt_d0000c1a9c6c4614949af6931ea9fac8").Result;
+            var e = await _client.GetEvent("evt_d0000c1a9c6c4614949af6931ea9fac8");
             Assert.IsNotNull(e.RequestError);
             Assert.AreEqual(e.RequestError.StatusCode, HttpStatusCode.NotFound);
             Assert.AreEqual(e.RequestError.Code, "EVENT.NOT_FOUND");

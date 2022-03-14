@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -24,38 +25,38 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestRetrieve()
+        public async Task TestRetrieve()
         {
-            var account = _client.GetCarrierAccount("ca_7642d249fdcf47bcb5da9ea34c96dfcf").Result;
+            var account = await _client.GetCarrierAccount("ca_7642d249fdcf47bcb5da9ea34c96dfcf");
             Assert.AreEqual("ca_7642d249fdcf47bcb5da9ea34c96dfcf", account.Id);
         }
 
         [TestMethod]
-        public void TestCrud()
+        public async Task TestCrud()
         {
-            var account = _client.CreateCarrierAccount(new CarrierAccount {
+            var account = await _client.CreateCarrierAccount(new CarrierAccount {
                 Type = "DhlExpressAccount",
                 Description = "description",
-            }).Result;
+            });
 
             Assert.IsNotNull(account.Id);
             Assert.AreEqual(account.Type, "DhlExpressAccount");
 
             account.Reference = "new-reference";
-            account = _client.UpdateCarrierAccount(account).Result;
+            account = await _client.UpdateCarrierAccount(account);
             Assert.AreEqual("new-reference", account.Reference);
 
             _client.DestroyCarrierAccount(account.Id).Wait();
 
-            account = _client.GetCarrierAccount(account.Id).Result;
+            account = await _client.GetCarrierAccount(account.Id);
             Assert.IsNotNull(account.RequestError);
             Assert.AreEqual(account.RequestError.Code, "NOT_FOUND");
         }
 
         [TestMethod]
-        public void TestList()
+        public async Task TestList()
         {
-            var accounts = _client.ListCarrierAccounts().Result;
+            var accounts = await _client.ListCarrierAccounts();
             Assert.AreEqual(accounts[0].Id, "ca_7642d249fdcf47bcb5da9ea34c96dfcf");
         }
     }

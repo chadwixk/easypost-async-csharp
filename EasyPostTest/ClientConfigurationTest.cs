@@ -4,10 +4,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace EasyPostTest
 {
     [TestClass]
-    public class ClientConfigurationTest {
-
+    public class ClientConfigurationTest
+    {
         [TestMethod]
-        public void TestApiKeyConstructor() {
+        public void TestApiKeyConstructor()
+        {
             var config = new ClientConfiguration("someApiKey");
 
             Assert.AreEqual("someApiKey", config.ApiKey);
@@ -15,7 +16,8 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestApiKeyPlusBaseUrlConstructor() {
+        public void TestApiKeyPlusBaseUrlConstructor()
+        {
             var config = new ClientConfiguration("someApiKey", "http://foobar.com");
 
             Assert.AreEqual("someApiKey", config.ApiKey);

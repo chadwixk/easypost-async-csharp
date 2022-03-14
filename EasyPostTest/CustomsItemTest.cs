@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,16 +25,16 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieve()
+        public async Task TestCreateAndRetrieve()
         {
-            var item = _client.CreateCustomsItem(new CustomsItem {
+            var item = await _client.CreateCustomsItem(new CustomsItem {
                 Description= "TShirt",
                 Quantity = 1,
                 Weight = 8,
                 Value = 10.0,
                 Currency = "USD",
-            }).Result;
-            var retrieved = _client.GetCustomsItem(item.Id).Result;
+            });
+            var retrieved = await _client.GetCustomsItem(item.Id);
             Assert.AreEqual(item.Id, retrieved.Id);
             Assert.AreEqual(retrieved.Value, 10.0);
             Assert.AreEqual(retrieved.Currency, "USD");

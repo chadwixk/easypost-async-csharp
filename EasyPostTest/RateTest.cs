@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,7 +25,7 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestRetrieve()
+        public async Task TestRetrieve()
         {
             var fromAddress = new Address {
                 Name = "Andrew Tribone",
@@ -55,9 +56,9 @@ namespace EasyPostTest
                 },
                 Reference = "ShipmentRef",
             };
-            shipment = _client.CreateShipment(shipment).Result;
+            shipment = await _client.CreateShipment(shipment);
 
-            var rate = _client.GetRate(shipment.Rates[0].Id).Result;
+            var rate = await _client.GetRate(shipment.Rates[0].Id);
             Assert.AreEqual(rate.Id, shipment.Rates[0].Id);
 
             Assert.IsNotNull(rate.Rate);

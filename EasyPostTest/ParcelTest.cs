@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,24 +25,24 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieve()
+        public async Task TestCreateAndRetrieve()
         {
-            var parcel = _client.CreateParcel(new Parcel {
+            var parcel = await _client.CreateParcel(new Parcel {
                 Length = 10,
                 Width = 20,
                 Height = 5,
                 Weight = 1.8,
-            }).Result;
-            var retrieved = _client.GetParcel(parcel.Id).Result;
+            });
+            var retrieved = await _client.GetParcel(parcel.Id);
             Assert.AreEqual(parcel.Id, retrieved.Id);
         }
 
         [TestMethod]
-        public void TestPredefinedPackage()
+        public async Task TestPredefinedPackage()
         {
             var parcel = new Parcel { Weight = 1.8, PredefinedPackage = "SMALLFLATRATEBOX" };
             var shipment = new Shipment { Parcel = parcel };
-            shipment = _client.CreateShipment(shipment).Result;
+            shipment = await _client.CreateShipment(shipment);
 
             Assert.AreEqual(null, shipment.Parcel.Height);
             Assert.AreEqual("SMALLFLATRATEBOX", shipment.Parcel.PredefinedPackage);

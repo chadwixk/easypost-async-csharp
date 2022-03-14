@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,9 +25,9 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestListCarrierTypes()
+        public async Task TestListCarrierTypes()
         {
-            var types = _client.ListCarrierTypes().Result;
+            var types = await _client.ListCarrierTypes();
             Assert.AreNotEqual(0, types.Count);
         }
     }

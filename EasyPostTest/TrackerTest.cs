@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,28 +25,28 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieve()
+        public async Task TestCreateAndRetrieve()
         {
             const string carrier = "USPS";
             const string trackingCode = "EZ1000000001";
 
-            var tracker = _client.CreateTracker(carrier, trackingCode).Result;
+            var tracker = await _client.CreateTracker(carrier, trackingCode);
             Assert.AreEqual(tracker.TrackingCode, trackingCode);
             Assert.IsNotNull(tracker.EstDeliveryDate);
             Assert.IsNotNull(tracker.Carrier);
             Assert.IsNotNull(tracker.PublicUrl);
 
-            var t = _client.GetTracker(tracker.Id).Result;
+            var t = await _client.GetTracker(tracker.Id);
             Assert.AreEqual(t.Id, tracker.Id);
         }
 
         [TestMethod]
-        public void TestList()
+        public async Task TestList()
         {
-            var trackerList = _client.ListTrackers().Result;
+            var trackerList = await _client.ListTrackers();
             Assert.AreNotEqual(0, trackerList.Trackers.Count);
 
-            var nextTrackerList = trackerList.Next(_client).Result;
+            var nextTrackerList = await trackerList.Next(_client);
             Assert.AreNotEqual(trackerList.Trackers[0].Id, nextTrackerList.Trackers[0].Id);
         }
     }

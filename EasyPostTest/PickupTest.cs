@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -21,7 +22,7 @@ namespace EasyPostTest
         private Shipment _shipment;
 
         [TestInitialize]
-        public void Initialize()
+        public async Task Initialize()
         {
             _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_TEST_API_KEY"));
             _address = new Address {
@@ -52,7 +53,7 @@ namespace EasyPostTest
                 Country = "US",
                 Zip = "94102",
             };
-            _shipment = _client.CreateShipment(new Shipment {
+            _shipment = await _client.CreateShipment(new Shipment {
                 Parcel = new Parcel {
                     Length = 8,
                     Width = 6,
@@ -62,7 +63,7 @@ namespace EasyPostTest
                 ToAddress = _toAddress,
                 FromAddress = _fromAddress,
                 Reference = "ShipmentRef",
-            }).Result;
+            });
             _client.BuyShipment(_shipment.Id, _shipment.LowestRate().Id).Wait();
             _testPickup = new Pickup {
                 IsAccountAddress = false,
@@ -75,26 +76,26 @@ namespace EasyPostTest
         }
 
         [TestMethod]
-        public void TestCreateAndRetrieve()
+        public async Task TestCreateAndRetrieve()
         {
-            var pickup = _client.CreatePickup(_testPickup).Result;
+            var pickup = await _client.CreatePickup(_testPickup);
 
             Assert.IsNotNull(pickup.Id);
             Assert.AreEqual(pickup.Address.Street1, "164 Townsend Street");
 
-            var retrieved = _client.GetPickup(pickup.Id).Result;
+            var retrieved = await _client.GetPickup(pickup.Id);
             Assert.AreEqual(pickup.Id, retrieved.Id);
         }
 
         [TestMethod]
-        public void TestBuyAndCancel()
+        public async Task TestBuyAndCancel()
         {
-            var pickup = _client.CreatePickup(_testPickup).Result;
+            var pickup = await _client.CreatePickup(_testPickup);
 
-            pickup = _client.BuyPickup(pickup.Id, pickup.PickupRates[0].Carrier, pickup.PickupRates[0].Service).Result;
+            pickup = await _client.BuyPickup(pickup.Id, pickup.PickupRates[0].Carrier, pickup.PickupRates[0].Service);
             Assert.IsNotNull(pickup.Confirmation);
 
-            pickup = _client.CancelPickp(pickup.Id).Result;
+            pickup = await _client.CancelPickp(pickup.Id);
             Assert.AreEqual(pickup.Status, "canceled");
         }
     }
