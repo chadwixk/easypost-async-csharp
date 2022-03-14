@@ -1,10 +1,12 @@
 /*
  * Licensed under The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 EasyPost
  * Copyright (C) 2017 AMain.com, Inc.
  * All Rights Reserved
  */
+
+using System;
 
 namespace EasyPost
 {
@@ -75,6 +77,9 @@ namespace EasyPost
             string apiBase,
             int timeout)
         {
+            if (string.IsNullOrEmpty(apiKey)) {
+                throw new ArgumentException("The API Key must be provided!", nameof(apiKey));
+            }
             ApiKey = apiKey;
             ApiBase = apiBase;
             Timeout = timeout;

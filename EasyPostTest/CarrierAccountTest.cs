@@ -6,6 +6,7 @@
  * All Rights Reserved
  */
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -19,7 +20,7 @@ namespace EasyPostTest
         [TestInitialize]
         public void Initialize()
         {
-            _client = new EasyPostClient("GxhY479LTioDWsGcEtSAfQ");
+            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_TEST_API_KEY"));
         }
 
         [TestMethod]

@@ -1,11 +1,12 @@
 ﻿/*
  * Licensed under The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 EasyPost
  * Copyright (C) 2017 AMain.com, Inc.
  * All Rights Reserved
  */
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
@@ -19,7 +20,7 @@ namespace EasyPostTest
         [TestInitialize]
         public void Initialize()
         {
-            _client = new EasyPostClient("VJ63zukvLyxz92NKP1k0EQ");
+            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_TEST_API_KEY"));
         }
 
         [TestMethod]
