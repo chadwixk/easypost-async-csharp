@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EasyPost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -55,6 +56,12 @@ namespace EasyPostTest
                     Weight = 10,
                 },
                 Reference = "ShipmentRef",
+                CarrierAccounts = new List<CarrierAccount> {
+                    new CarrierAccount {
+                        // USPS carrier
+                        Id = "ca_69353cc3d46b42b5ae06f6949eb0ce0b",
+                    }
+                }
             };
             shipment = await _client.CreateShipment(shipment);
 

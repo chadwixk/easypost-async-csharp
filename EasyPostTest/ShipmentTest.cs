@@ -153,6 +153,8 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestCreateAndBuyPlusInsurance()
         {
+            // Only use USPS for this test
+            _testShipment.CarrierAccounts = new List<CarrierAccount> { new CarrierAccount { Id = "ca_69353cc3d46b42b5ae06f6949eb0ce0b" } };
             var shipment = await _client.CreateShipment(_testShipment);
             Assert.IsNotNull(shipment.Rates);
             Assert.AreNotEqual(shipment.Rates.Count, 0);
@@ -169,6 +171,8 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestRefund()
         {
+            // Only use USPS for this test
+            _testShipment.CarrierAccounts = new List<CarrierAccount> { new CarrierAccount { Id = "ca_69353cc3d46b42b5ae06f6949eb0ce0b" } };
             var shipment  = await BuyShipment();
             shipment = await _client.RefundShipment(shipment.Id);
             Assert.IsNotNull(shipment.RefundStatus);
@@ -177,6 +181,8 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestGenerateLabel()
         {
+            // Only use USPS for this test
+            _testShipment.CarrierAccounts = new List<CarrierAccount> { new CarrierAccount { Id = "ca_69353cc3d46b42b5ae06f6949eb0ce0b" } };
             var shipment  = await BuyShipment();
 
             shipment = await _client.GenerateLabel(shipment.Id, "pdf");
@@ -215,22 +221,26 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestCarrierAccounts()
         {
-            var shipment = _testShipment;
-            shipment.CarrierAccounts = new List<CarrierAccount> { new CarrierAccount { Id = "ca_7642d249fdcf47bcb5da9ea34c96dfcf" } };
-            shipment = await _client.CreateShipment(_testShipment);
+            // Only use USPS for this test
+            _testShipment.CarrierAccounts = new List<CarrierAccount> { new CarrierAccount { Id = "ca_69353cc3d46b42b5ae06f6949eb0ce0b" } };
+            var shipment = await _client.CreateShipment(_testShipment);
             if (shipment.Rates.Count > 0) {
-                Assert.IsTrue(shipment.Rates.TrueForAll(r => r.CarrierAccountId == "ca_7642d249fdcf47bcb5da9ea34c96dfcf"));
+                Assert.IsTrue(shipment.Rates.TrueForAll(r => r.CarrierAccountId == "ca_69353cc3d46b42b5ae06f6949eb0ce0b"));
             }
         }
 
         [TestMethod]
         public async Task TestList()
         {
-            var shipmentList = await _client.ListShipments();
-            Assert.AreNotEqual(0, shipmentList.Shipments.Count);
+            // Only use USPS for this test
+            var shipmentList = await _client.ListShipments(new ShipmentListOptions {
+                PageSize = 2
+            });
+            Assert.AreEqual(2, shipmentList.Shipments.Count);
+            Assert.AreEqual(true, shipmentList.HasMore);
 
             var nextShipmentList = await shipmentList.Next(_client);
-            Assert.AreNotEqual(0, nextShipmentList.Shipments.Count);
+            Assert.AreEqual(2, nextShipmentList.Shipments.Count);
             Assert.AreNotEqual(shipmentList.Shipments[0].Id, nextShipmentList.Shipments[0].Id);
         }
     }

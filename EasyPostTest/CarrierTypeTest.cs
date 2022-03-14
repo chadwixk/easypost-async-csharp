@@ -21,7 +21,7 @@ namespace EasyPostTest
         [TestInitialize]
         public void Initialize()
         {
-            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_TEST_API_KEY"));
+            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_PRODUCTION_API_KEY"));
         }
 
         [TestMethod]

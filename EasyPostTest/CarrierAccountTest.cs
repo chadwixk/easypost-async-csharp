@@ -21,14 +21,14 @@ namespace EasyPostTest
         [TestInitialize]
         public void Initialize()
         {
-            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_TEST_API_KEY"));
+            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_PRODUCTION_API_KEY"));
         }
 
         [TestMethod]
         public async Task TestRetrieve()
         {
-            var account = await _client.GetCarrierAccount("ca_7642d249fdcf47bcb5da9ea34c96dfcf");
-            Assert.AreEqual("ca_7642d249fdcf47bcb5da9ea34c96dfcf", account.Id);
+            var account = await _client.GetCarrierAccount("ca_2f709c59fccb4488a10641920a12cc7d");
+            Assert.AreEqual("ca_2f709c59fccb4488a10641920a12cc7d", account.Id);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace EasyPostTest
         {
             var account = await _client.CreateCarrierAccount(new CarrierAccount {
                 Type = "DhlExpressAccount",
-                Description = "description",
+                Description = "test account description",
             });
 
             Assert.IsNotNull(account.Id);
@@ -57,7 +57,7 @@ namespace EasyPostTest
         public async Task TestList()
         {
             var accounts = await _client.ListCarrierAccounts();
-            Assert.AreEqual(accounts[0].Id, "ca_7642d249fdcf47bcb5da9ea34c96dfcf");
+            Assert.AreEqual(accounts[0].Id, "ca_2f709c59fccb4488a10641920a12cc7d");
         }
     }
 }

@@ -35,7 +35,6 @@ namespace EasyPostTest
             Assert.AreEqual(e.RequestError.Code, "EVENT.NOT_FOUND");
             Assert.AreEqual(e.RequestError.Message, "The event(s) could not be found.");
             Assert.AreEqual(e.RequestError.Errors.Count, 0);
-
-        }
+       }
     }
 }

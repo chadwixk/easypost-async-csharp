@@ -41,7 +41,40 @@ namespace EasyPostTest
         public async Task TestPredefinedPackage()
         {
             var parcel = new Parcel { Weight = 1.8, PredefinedPackage = "SMALLFLATRATEBOX" };
-            var shipment = new Shipment { Parcel = parcel };
+            var address = new Address {
+                Company = "Simpler Postage Inc",
+                Street1 = "164 Townsend Street",
+                Street2 = "Unit 1",
+                City = "San Francisco",
+                State = "CA",
+                Country = "US",
+                Zip = "94107",
+                Phone = "1234567890"
+            };
+            var toAddress = new Address {
+                Company = "Simpler Postage Inc",
+                Street1 = "164 Townsend Street",
+                Street2 = "Unit 1",
+                City = "San Francisco",
+                State = "CA",
+                Country = "US",
+                Zip = "94107",
+            };
+            var fromAddress = new Address {
+                Name = "Andrew Tribone",
+                Street1 = "480 Fell St",
+                Street2 = "#3",
+                City = "San Francisco",
+                State = "CA",
+                Country = "US",
+                Zip = "94102",
+            };
+            var shipment = new Shipment {
+                Parcel = parcel,
+                ToAddress = toAddress,
+                FromAddress = fromAddress,
+                Reference = "ShipmentRef",
+            };
             shipment = await _client.CreateShipment(shipment);
 
             Assert.AreEqual(null, shipment.Parcel.Height);

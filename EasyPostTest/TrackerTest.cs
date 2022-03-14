@@ -43,10 +43,14 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestList()
         {
-            var trackerList = await _client.ListTrackers();
-            Assert.AreNotEqual(0, trackerList.Trackers.Count);
+            var trackerList = await _client.ListTrackers(new TrackerListOptions {
+                PageSize = 2
+            });
+            Assert.AreEqual(2, trackerList.Trackers.Count);
+            Assert.AreEqual(true, trackerList.HasMore);
 
             var nextTrackerList = await trackerList.Next(_client);
+            Assert.AreEqual(2, trackerList.Trackers.Count);
             Assert.AreNotEqual(trackerList.Trackers[0].Id, nextTrackerList.Trackers[0].Id);
         }
     }

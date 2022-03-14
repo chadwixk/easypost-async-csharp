@@ -39,8 +39,8 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestGetScanForm()
         {
-            var scanForm = await _client.GetScanForm("sf_e35ae7fc59bb4482ae32efc663267104");
-            Assert.AreEqual(scanForm.Id, "sf_e35ae7fc59bb4482ae32efc663267104");
+            var scanForm = await _client.GetScanForm("sf_327dee75b87841ff85a260ae77fc223e");
+            Assert.AreEqual(scanForm.Id, "sf_327dee75b87841ff85a260ae77fc223e");
         }
     }
 }

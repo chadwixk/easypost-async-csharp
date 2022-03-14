@@ -98,15 +98,16 @@ namespace EasyPostTest
         {
             _testOrder.CarrierAccounts = new List<CarrierAccount> {
                 new CarrierAccount {
-                    Id = "ca_7642d249fdcf47bcb5da9ea34c96dfcf",
+                    // USPS carrier
+                    Id = "ca_69353cc3d46b42b5ae06f6949eb0ce0b",
                 }
             };
             var order = await _client.CreateOrder(_testOrder);
 
             Assert.IsNotNull(order.Id);
             Assert.AreEqual(order.Reference, "OrderRef");
-            CollectionAssert.AreEqual(new HashSet<string>(order.Shipments.SelectMany(s => s.Rates).Select(r => r.CarrierAccountId)).ToList(),
-                new List<string> { "ca_7642d249fdcf47bcb5da9ea34c96dfcf" });
+            var hashSet = new HashSet<string>(order.Shipments.SelectMany(s => s.Rates).Select(r => r.CarrierAccountId));
+            CollectionAssert.AreEqual(hashSet.ToList(), new List<string> { "ca_69353cc3d46b42b5ae06f6949eb0ce0b" });
             Assert.AreEqual(3, order.Rates.Count);
 
             _testOrder.CarrierAccounts = null;

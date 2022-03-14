@@ -21,7 +21,7 @@ namespace EasyPostTest
         [TestInitialize]
         public void Initialize()
         {
-            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_TEST_API_KEY"));
+            _client = new EasyPostClient(Environment.GetEnvironmentVariable("EASYPOST_PRODUCTION_API_KEY"));
         }
 
         [TestMethod]
@@ -37,16 +37,16 @@ namespace EasyPostTest
         [TestMethod]
         public async Task TestCrud()
         {
-            var user = await _client.CreateUser("Test Name");
+            var user = await _client.CreateUser("Unit Test User Name");
             Assert.AreEqual(user.ApiKeys.Count, 2);
             Assert.IsNotNull(user.Id);
 
             var other = await _client.GetUser(user.Id);
             Assert.AreEqual(user.Id, other.Id);
 
-            user.Name = "NewTest Name";
+            user.Name = "New Unit Test User Name";
             user = await _client.UpdateUser(user);
-            Assert.AreEqual("NewTest Name", user.Name);
+            Assert.AreEqual("New Unit Test User Name", user.Name);
 
             _client.DestroyUser(user.Id).Wait();
             user = await _client.GetUser(user.Id);
