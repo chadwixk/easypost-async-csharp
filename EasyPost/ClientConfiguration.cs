@@ -20,17 +20,17 @@ namespace EasyPost
         /// <summary>
         /// The API key to use on per-request basis
         /// </summary>
-        public string ApiKey { get; set; }
+        public string ApiKey { get; }
 
         /// <summary>
         /// The API base URI to use on a per-request basis
         /// </summary>
-        public string ApiBase { get; set; }
+        public string ApiBase { get; }
 
         /// <summary>
         /// Timeout in milliseconds to use for requests made by the client
         /// </summary>
-        public int Timeout { get; set; }
+        public int Timeout { get; }
 
         /// <summary>
         /// Create a ClientConfiguration instance

@@ -103,7 +103,7 @@ namespace EasyPost
         public async Task<Pickup> CreatePickup(
             Pickup pickup = null)
         {
-            var request = new EasyPostRequest("pickups", Method.POST);
+            var request = new EasyPostRequest("pickups", Method.Post);
             if (pickup != null) {
                 request.AddBody(pickup.AsDictionary(), "pickup");
             }
@@ -123,7 +123,7 @@ namespace EasyPost
             string carrier,
             string service)
         {
-            var request = new EasyPostRequest("pickups/{id}/buy", Method.POST);
+            var request = new EasyPostRequest("pickups/{id}/buy", Method.Post);
             request.AddUrlSegment("id", id);
             request.AddBody(new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("carrier", carrier),
@@ -141,7 +141,7 @@ namespace EasyPost
         public async Task<Pickup> CancelPickp(
             string id)
         {
-            var request = new EasyPostRequest("pickups/{id}/cancel", Method.POST);
+            var request = new EasyPostRequest("pickups/{id}/cancel", Method.Post);
             request.AddUrlSegment("id", id);
 
             return await Execute<Pickup>(request);

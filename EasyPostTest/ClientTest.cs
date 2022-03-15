@@ -20,21 +20,21 @@ namespace EasyPostTest
         public void TestApiBase()
         {
             var client = new EasyPostClient(new ClientConfiguration("apiKey", "https://foobar.com"));
-            Assert.AreEqual(new Uri("https://foobar.com"), client.RestClient.BaseUrl);
+            Assert.AreEqual(new Uri("https://foobar.com"), client.ApiBase);
         }
 
         [TestMethod]
         public void TestRestClient()
         {
             var client = new EasyPostClient(new ClientConfiguration("apiKey"));
-            Assert.AreEqual(client.RestClient.BaseUrl, "https://api.easypost.com/v2");
+            Assert.AreEqual(client.ApiBase, "https://api.easypost.com/v2");
         }
 
         [TestMethod]
         public void TestRestClientWithOptions()
         {
             var client = new EasyPostClient(new ClientConfiguration("someapikey", "http://apiBase.com"));
-            Assert.AreEqual(new Uri("http://apiBase.com"), client.RestClient.BaseUrl);
+            Assert.AreEqual(new Uri("http://apiBase.com"), client.ApiBase);
         }
 
         [TestMethod]
@@ -43,10 +43,9 @@ namespace EasyPostTest
             var client = new EasyPostClient("apiKey");
             var request = new EasyPostRequest("resource");
 
-            var parameters = client.PrepareRequest(request).Parameters.Select(parameter => parameter.ToString()).ToList();
-            CollectionAssert.Contains(parameters, "user_agent=EasyPost/CSharpASync/" + client.Version);
+            var parameters = client.PrepareRequest(request).Parameters.Select(parameter => $"{parameter.Name}={parameter.Value}").ToList();
+            CollectionAssert.Contains(parameters, $"user_agent=EasyPost/CSharpASync/{client.Version}");
             CollectionAssert.Contains(parameters, "authorization=Bearer apiKey");
-            CollectionAssert.Contains(parameters, "content_type=application/x-www-form-urlencoded");
         }
 
         [TestMethod]
@@ -55,10 +54,9 @@ namespace EasyPostTest
             var client = new EasyPostClient(new ClientConfiguration("someapikey", "http://foobar.com"));
             var request = new EasyPostRequest("resource");
 
-            var parameters = client.PrepareRequest(request).Parameters.Select(parameter => parameter.ToString()).ToList();
-            CollectionAssert.Contains(parameters, "user_agent=EasyPost/CSharpASync/" + client.Version);
+            var parameters = client.PrepareRequest(request).Parameters.Select(parameter => $"{parameter.Name}={parameter.Value}").ToList();
+            CollectionAssert.Contains(parameters, $"user_agent=EasyPost/CSharpASync/{client.Version}");
             CollectionAssert.Contains(parameters, "authorization=Bearer someapikey");
-            CollectionAssert.Contains(parameters, "content_type=application/x-www-form-urlencoded");
         }
     }
 }

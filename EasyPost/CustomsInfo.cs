@@ -87,7 +87,7 @@ namespace EasyPost
         public async Task<CustomsInfo> CreateCustomsInfo(
             CustomsInfo customsInfo)
         {
-            var request = new EasyPostRequest("customs_infos", Method.POST);
+            var request = new EasyPostRequest("customs_infos", Method.Post);
             request.AddBody(customsInfo.AsDictionary(), "customs_info");
 
             return await Execute<CustomsInfo>(request);

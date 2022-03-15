@@ -71,7 +71,7 @@ namespace EasyPost
         public async Task<Container> CreateContainer(
             Container container)
         {
-            var request = new EasyPostRequest("containers", Method.POST);
+            var request = new EasyPostRequest("containers", Method.Post);
             request.AddBody(container.AsDictionary(), "container");
 
             return await Execute<Container>(request);

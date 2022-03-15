@@ -1,6 +1,6 @@
 ﻿/*
  * Licensed under The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 EasyPost
  * Copyright (C) 2017 AMain.com, Inc.
  * All Rights Reserved
@@ -77,7 +77,7 @@ namespace EasyPost
         public async Task<CarrierAccount> CreateCarrierAccount(
             CarrierAccount carrierAccount)
         {
-            var request = new EasyPostRequest("carrier_accounts", Method.POST);
+            var request = new EasyPostRequest("carrier_accounts", Method.Post);
             request.AddBody(carrierAccount.AsDictionary(), "carrier_account");
 
             return await Execute<CarrierAccount>(request);
@@ -91,7 +91,7 @@ namespace EasyPost
         public async Task<CarrierAccount> UpdateCarrierAccount(
             CarrierAccount carrierAccount)
         {
-            var request = new EasyPostRequest("carrier_accounts/{id}", Method.PUT);
+            var request = new EasyPostRequest("carrier_accounts/{id}", Method.Put);
             request.AddUrlSegment("id", carrierAccount.Id);
             request.AddBody(carrierAccount.AsDictionary(), "carrier_account");
 
@@ -105,7 +105,7 @@ namespace EasyPost
         public Task DestroyCarrierAccount(
             string id)
         {
-            var request = new EasyPostRequest("carrier_accounts/{id}", Method.DELETE);
+            var request = new EasyPostRequest("carrier_accounts/{id}", Method.Delete);
             request.AddUrlSegment("id", id);
             return Execute(request);
         }

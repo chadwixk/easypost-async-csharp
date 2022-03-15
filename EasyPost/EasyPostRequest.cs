@@ -23,7 +23,7 @@ namespace EasyPost
         /// <param name="method">Request method</param>
         public EasyPostRequest(
             string resource,
-            Method method = Method.GET)
+            Method method = Method.Get)
         {
             RestRequest = new RestRequest(resource, method);
             RestRequest.AddHeader("Accept", "application/json");
@@ -32,7 +32,7 @@ namespace EasyPost
         /// <summary>
         /// The underlying RestRequest
         /// </summary>
-        public RestRequest RestRequest;
+        public readonly RestRequest RestRequest;
 
         /// <summary>
         /// Adds a Url segment parameter to the request
@@ -84,7 +84,7 @@ namespace EasyPost
             string parent)
         {
             var encoded = EncodeParameters(FlattenParameters(parameters, parent));
-            AddParameter("application/x-www-form-urlencoded", encoded, ParameterType.RequestBody);
+            RestRequest.AddBody(encoded, "application/x-www-form-urlencoded");
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace EasyPost
             for (var i = 0; i < parameters.Count; i++) {
                 result.AddRange(FlattenParameters(parameters.ToList()[i], string.Concat(parent, "[", i, "]")));
             }
-            AddParameter("application/x-www-form-urlencoded", EncodeParameters(result), ParameterType.RequestBody);
+            RestRequest.AddBody(EncodeParameters(result), "application/x-www-form-urlencoded");
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace EasyPost
         public void AddBody(
             List<KeyValuePair<string, string>> parameters)
         {
-            AddParameter("application/x-www-form-urlencoded", EncodeParameters(parameters), ParameterType.RequestBody);
+            RestRequest.AddBody(EncodeParameters(parameters), "application/x-www-form-urlencoded");
         }
 
         /// <summary>

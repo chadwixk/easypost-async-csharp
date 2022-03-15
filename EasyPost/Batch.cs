@@ -84,7 +84,7 @@ namespace EasyPost
             IEnumerable<Shipment> shipments = null, 
             string reference = null)
         {
-            var request = new EasyPostRequest("batches", Method.POST);
+            var request = new EasyPostRequest("batches", Method.Post);
             var parameters = new Dictionary<string, object>();
             if (reference != null) {
                 parameters.Add("reference", reference);
@@ -107,7 +107,7 @@ namespace EasyPost
             string id,
             IEnumerable<string> shipmentIds)
         {
-            var request = new EasyPostRequest("batches/{id}/add_shipments", Method.POST);
+            var request = new EasyPostRequest("batches/{id}/add_shipments", Method.Post);
             request.AddUrlSegment("id", id);
 
             var body = shipmentIds.Select(shipmentId => new Dictionary<string, object> { { "id", shipmentId } }).ToList();
@@ -139,7 +139,7 @@ namespace EasyPost
             string id,
             IEnumerable<string> shipmentIds)
         {
-            var request = new EasyPostRequest("batches/{id}/remove_shipments", Method.POST);
+            var request = new EasyPostRequest("batches/{id}/remove_shipments", Method.Post);
             request.AddUrlSegment("id", id);
 
             var body = shipmentIds.Select(shipmentId => new Dictionary<string, object> { { "id", shipmentId } }).ToList();
@@ -169,7 +169,7 @@ namespace EasyPost
         public async Task<Batch> BuyLabelsForBatch(
             string id)
         {
-            var request = new EasyPostRequest("batches/{id}/buy", Method.POST);
+            var request = new EasyPostRequest("batches/{id}/buy", Method.Post);
             request.AddUrlSegment("id", id);
 
             return await Execute<Batch>(request);
@@ -187,7 +187,7 @@ namespace EasyPost
             string fileFormat,
             string orderBy = null)
         {
-            var request = new EasyPostRequest("batches/{id}/label", Method.POST);
+            var request = new EasyPostRequest("batches/{id}/label", Method.Post);
             request.AddUrlSegment("id", id);
 
             var body = new List<KeyValuePair<string, string>> {
@@ -209,7 +209,7 @@ namespace EasyPost
         public async Task<Batch> GenerateScanFormForBatch(
             string id)
         {
-            var request = new EasyPostRequest("batches/{id}/scan_form", Method.POST);
+            var request = new EasyPostRequest("batches/{id}/scan_form", Method.Post);
             request.AddUrlSegment("id", id);
 
             return await Execute<Batch>(request);

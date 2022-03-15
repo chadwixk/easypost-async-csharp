@@ -92,7 +92,7 @@ namespace EasyPost
         public async Task<Item> CreateItem(
             Item item)
         {
-            var request = new EasyPostRequest("items", Method.POST);
+            var request = new EasyPostRequest("items", Method.Post);
             request.AddBody(item.AsDictionary(), "item");
 
             return await Execute<Item>(request);

@@ -67,7 +67,7 @@ namespace EasyPost
         public async Task<Parcel> CreateParcel(
             Parcel parcel)
         {
-            var request = new EasyPostRequest("parcels", Method.POST);
+            var request = new EasyPostRequest("parcels", Method.Post);
             request.AddBody(parcel.AsDictionary(), "parcel");
 
             return await Execute<Parcel>(request);

@@ -1,6 +1,6 @@
 ﻿/*
  * Licensed under The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 EasyPost
  * Copyright (C) 2017 AMain.com, Inc.
  * All Rights Reserved
@@ -112,7 +112,7 @@ namespace EasyPost
         public async Task<User> CreateUser(
             string userName)
         {
-            var request = new EasyPostRequest("users", Method.POST);
+            var request = new EasyPostRequest("users", Method.Post);
             request.AddBody(new Dictionary<string, object> { { "name", userName } }, "user");
 
             return await Execute<User>(request);
@@ -125,7 +125,7 @@ namespace EasyPost
         public async Task<User> UpdateUser(
             User user)
         {
-            var request = new EasyPostRequest("users/{id}", Method.PUT);
+            var request = new EasyPostRequest("users/{id}", Method.Put);
             request.AddUrlSegment("id", user.Id);
             request.AddBody(user.AsDictionary(), "user");
 
@@ -139,7 +139,7 @@ namespace EasyPost
         public Task DestroyUser(
             string id)
         {
-            var request = new EasyPostRequest("users/{id}", Method.DELETE);
+            var request = new EasyPostRequest("users/{id}", Method.Delete);
             request.AddUrlSegment("id", id);
             return Execute(request);
         }

@@ -65,7 +65,7 @@ var address = new Address {
     Zip = "94107",
 };
 
-var address = client.CreateAddress(address, VerificationFlags.Delivery);
+var address = await client.CreateAddress(address, VerificationFlags.Delivery);
 
 if (address.Verifications.Delivery.Success) {
     // successful verification
@@ -87,7 +87,7 @@ Address address = new Address {
     Zip = "94107",
 };
 
-var address = client.CreateAddress(address, VerificationFlags.DeliveryStrict);
+var address = await client.CreateAddress(address, VerificationFlags.DeliveryStrict);
 if (address.RequestError != null) {
     // unsuccessful verification
 }
@@ -116,7 +116,7 @@ var shipment = new Shipment {
     Parcel = parcel
 };
 
-shipment = client.CreateShipment(shipment);
+shipment = await client.CreateShipment(shipment);
 
 foreach (var rate in shipment.Rates) {
     // process rates
@@ -163,7 +163,7 @@ var shipment = new Shipment {
     Options = options
 };
 
-shipment = client.BuyShipment(shipment.Id, shipment.LowestRate(
+shipment = await client.BuyShipment(shipment.Id, shipment.LowestRate(
     includeServices: new[] { Service.Priority },
     excludeCarriers: new[] { Carrier.USPS }
 ));
@@ -189,7 +189,7 @@ var shipment = new Shipment {
     Options = options
 };
 
-var batch = client.CreateBatch(new[] { _testBatchShipment }, "MyReference");
+var batch = await client.CreateBatch(new[] { _testBatchShipment }, "MyReference");
 ```
 
 This will produce two webhooks. One `batch.Created` and one `batch.Updated`. Process each `Batch` [state](https://www.easypost.com/docs/api/csharp#batch-object) according to your business logic.

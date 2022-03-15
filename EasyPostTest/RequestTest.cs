@@ -40,8 +40,9 @@ namespace EasyPostTest
             request.AddBody(new Dictionary<string, object> { { "foo", "bar" } }, "parent");
 
             var restRequest = request.RestRequest;
-            CollectionAssert.Contains(restRequest.Parameters.Select(parameter => parameter.ToString()).ToList(),
-                "application/x-www-form-urlencoded=parent%5Bfoo%5D=bar");
+            var body = restRequest.Parameters.FirstOrDefault(p => p.Type == ParameterType.RequestBody);
+            Assert.AreEqual("application/x-www-form-urlencoded", body.ContentType);
+            Assert.AreEqual("parent%5Bfoo%5D=bar", body.Value);
         }
 
         [TestMethod]

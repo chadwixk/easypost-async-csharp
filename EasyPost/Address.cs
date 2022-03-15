@@ -123,7 +123,7 @@ namespace EasyPost
             Address address,
             VerificationFlags verify = VerificationFlags.None)
         {
-            var request = new EasyPostRequest("addresses", Method.POST);
+            var request = new EasyPostRequest("addresses", Method.Post);
             request.AddBody(address.AsDictionary(), "address");
 
             if ((verify & VerificationFlags.Delivery) != 0) {

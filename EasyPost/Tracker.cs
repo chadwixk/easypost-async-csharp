@@ -90,7 +90,7 @@ namespace EasyPost
             string carrier,
             string trackingCode)
         {
-            var request = new EasyPostRequest("trackers", RestSharp.Method.POST);
+            var request = new EasyPostRequest("trackers", RestSharp.Method.Post);
             var parameters = new Dictionary<string, object>() {
                 { "tracking_code", trackingCode },
                 { "carrier", carrier }

@@ -235,7 +235,7 @@ namespace EasyPost
         public async Task<Shipment> CreateShipment(
             Shipment shipment)
         {
-            var request = new EasyPostRequest("shipments", Method.POST);
+            var request = new EasyPostRequest("shipments", Method.Post);
             request.AddBody(shipment.AsDictionary(), "shipment");
 
             return await Execute<Shipment>(request);
@@ -265,7 +265,7 @@ namespace EasyPost
             string id,
             string rateId)
         {
-            var request = new EasyPostRequest("shipments/{id}/buy", Method.POST);
+            var request = new EasyPostRequest("shipments/{id}/buy", Method.Post);
             request.AddUrlSegment("id", id);
             request.AddBody(new Dictionary<string, object> { { "id", rateId } }, "rate");
 
@@ -282,7 +282,7 @@ namespace EasyPost
             string id,
             double amount)
         {
-            var request = new EasyPostRequest("shipments/{id}/insure", Method.POST);
+            var request = new EasyPostRequest("shipments/{id}/insure", Method.Post);
             request.AddUrlSegment("id", id);
             request.AddBody(new List<KeyValuePair<string, string>> {
                 new KeyValuePair<string, string>("amount", amount.ToString())

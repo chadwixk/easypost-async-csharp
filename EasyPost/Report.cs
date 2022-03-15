@@ -100,7 +100,7 @@ namespace EasyPost
             string type,
             Report report = null)
         {
-            var request = new EasyPostRequest("reports/{type}", Method.POST);
+            var request = new EasyPostRequest("reports/{type}", Method.Post);
             request.AddUrlSegment("type", type);
             if (report != null) {
                 request.AddQueryString(report.AsDictionary());

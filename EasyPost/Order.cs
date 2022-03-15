@@ -102,7 +102,7 @@ namespace EasyPost
         public async Task<Order> CreateOrder(
             Order order)
         {
-            var request = new EasyPostRequest("orders", Method.POST);
+            var request = new EasyPostRequest("orders", Method.Post);
             request.AddBody(order.AsDictionary(), "order");
 
             return await Execute<Order>(request);
@@ -120,7 +120,7 @@ namespace EasyPost
             string carrier,
             string service)
         {
-            var request = new EasyPostRequest("orders/{id}/buy", Method.POST);
+            var request = new EasyPostRequest("orders/{id}/buy", Method.Post);
             request.AddUrlSegment("id", id);
             request.AddBody(new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("carrier", carrier),
