@@ -7,13 +7,14 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPost;
 
 namespace EasyPostTest
 {
+    // These currently do not work with my API keys..
+    [Ignore]
     [TestClass]
     public class PickupTest
     {
