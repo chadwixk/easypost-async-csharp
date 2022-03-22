@@ -7,10 +7,9 @@
  */
 
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
 using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
+using RestSharp.Serializers.Json;
 
 namespace EasyPost
 {
@@ -36,15 +35,12 @@ namespace EasyPost
                     return client;
                 }
 
-                // Create the client and set it up to use Newstonsoft.Json for serialization
+                // Create the client and set it up to use snake_case naming
                 client = new RestClient(apiBase);
-                client.UseNewtonsoftJson(new JsonSerializerSettings {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    MissingMemberHandling = MissingMemberHandling.Ignore,
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                    ContractResolver = new DefaultContractResolver {
-                        NamingStrategy = new SnakeCaseNamingStrategy()
+                client.UseSystemTextJson(new JsonSerializerOptions(JsonSerializerDefaults.Web) {
+                    PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
+                    Converters = {
+                        new NullToDefaultConverterFactory()
                     }
                 });
                 _clients.Add(apiBase, client);
