@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>EasyPost.Async</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>EasyPost Async</title>
     <authors>EasyPost, Kendall Bennett</authors>
     <owners>kendallbennett</owners>
@@ -11,11 +11,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>EasyPost Async Shipping API Client Library for .NET https://easypost.com/docs</description>
     <summary>A library for communicating with EasyPost from .NET applications with Task async support. To use this you need an account with EasyPost.</summary>
-    <releaseNotes>Updated to support AMain.RestSharp v107 with System.Text.Json not JSON.net</releaseNotes>
+    <releaseNotes>Fixed encoding of Payment object and updated to latest AMain RestSharp library.</releaseNotes>
     <copyright>Copyright (C) 2020 and later AMain.com, Inc. and EasyPost</copyright>
     <tags>EasyPost Async ShippingAPI USPS UPS FedEx</tags>
     <dependencies>
-      <dependency id="AMain.RestSharp" version="107.3.1-alpha.0.27" />
+      <dependency id="AMain.RestSharp" version="107.4.1" />
     </dependencies>
   </metadata>
 </package>

@@ -27,6 +27,6 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AMain.RestSharp" Version="107.3.1-alpha.0.27" />
+    <PackageReference Include="AMain.RestSharp" Version="107.4.1" />
   </ItemGroup>
 </Project>
