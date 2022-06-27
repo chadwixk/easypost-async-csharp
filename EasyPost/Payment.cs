@@ -8,7 +8,7 @@
 
 namespace EasyPost
 {
-    public class Payment
+    public class Payment : Resource
     {
         /// <summary>
         /// Defines the payment type. Supported values are "SENDER", "THIRD_PARTY", "RECEIVER", "COLLECT". Defaults to SENDER.
