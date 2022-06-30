@@ -45,7 +45,7 @@ namespace EasyPost
         /// <summary>
         /// The estimated delivery time as provided by the carrier, in the local time zone (if available)
         /// </summary>
-        public DateTime? EstDeliveryTimeLocal { set; get; }
+        public string EstDeliveryTimeLocal { set; get; }
 
         /// <summary>
         /// The alternate identifier for this package as provided by the carrier (if available)
