@@ -38,7 +38,7 @@ Error handling for task based Async operations is different than normal operatio
 ```cs
 using EasyPost;
 
-var address = await _client.GetAddress("not-an-id");
+var address = await client.GetAddress("not-an-id");
 if (address.RequestError != null) {
     var requestError = address.RequestError;
     var statusCode = requestError.StatusCode;
