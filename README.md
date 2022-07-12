@@ -189,7 +189,7 @@ var shipment = new Shipment {
     Options = options
 };
 
-var batch = await client.CreateBatch(new[] { _testBatchShipment }, "MyReference");
+var batch = await client.CreateBatch(new[] { shipment }, "MyReference");
 ```
 
 This will produce two webhooks. One `batch.Created` and one `batch.Updated`. Process each `Batch` [state](https://www.easypost.com/docs/api/csharp#batch-object) according to your business logic.
@@ -199,7 +199,7 @@ using EasyPost;
 
 var batch = client.GetBatch(batch.Id);
 
-batch = await _client.GenerateLabelForBatch(batch.Id, "zpl"); // populates batch.label_url asynchronously
+batch = await client.GenerateLabelForBatch(batch.Id, "zpl"); // populates batch.label_url asynchronously
 ```
 
 Consume the subsequent `batch.Updated` webhook to process further.
