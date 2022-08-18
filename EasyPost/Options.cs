@@ -336,6 +336,11 @@ namespace EasyPost
         public string DutyPaymentAccount { get; set; }
 
         /// <summary>
+        /// Duty payment account
+        /// </summary>
+        public DutyPayment DutyPayment { get; set; }
+
+        /// <summary>
         /// Group
         /// </summary>
         public string Group { get; set; }
