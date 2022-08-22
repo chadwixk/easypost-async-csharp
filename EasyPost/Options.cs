@@ -326,7 +326,7 @@ namespace EasyPost
         public bool? DeliveredDutyPaid { get; set; }
 
         /// <summary>
-        /// Delivert time preference
+        /// Delivery time preference
         /// </summary>
         public string DeliveryTimePreference { get; set; }
 
