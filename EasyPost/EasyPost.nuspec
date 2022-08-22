@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>EasyPost.Async</id>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <title>EasyPost Async</title>
     <authors>EasyPost, Kendall Bennett</authors>
     <owners>kendallbennett</owners>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>EasyPost Async Shipping API Client Library for .NET https://easypost.com/docs</description>
     <summary>A library for communicating with EasyPost from .NET applications with Task async support. To use this you need an account with EasyPost.</summary>
-    <releaseNotes>Fixed parsing error for CarrierDetail.EstDeliveryTimeLocal.</releaseNotes>
+    <releaseNotes>Added support for Duty Payments.</releaseNotes>
     <copyright>Copyright (C) 2020 and later AMain.com, Inc. and EasyPost</copyright>
     <tags>EasyPost Async ShippingAPI USPS UPS FedEx</tags>
     <dependencies>
