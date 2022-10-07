@@ -304,6 +304,22 @@ namespace EasyPost
         /// Commercial invoice size
         /// </summary>
         public string CommercialInvoiceSize { get; set; }
+        
+        /// <summary>
+        /// Commercial Invoice Letterhead Image
+        /// Required by FedEx to ship to certain countries
+        /// EasyPost: https://support.easypost.com/hc/en-us/articles/4402863879437-Common-FedEx-Error-COMMERCIAL-INVOICE-requires-an-electronic-LETTER-HEAD-
+        /// FedEx Country List: http://images.fedex.com/images/canada/services/international/customsforms/documents/Commercial_Invoice_Customs_Regulatory_Compliance.pdf
+        /// </summary>
+        public string? CommercialInvoiceLetterhead { get; set; }
+        
+        /// <summary>
+        /// Commercial Invoice Signature Image
+        /// Required by FedEx to ship to certain countries
+        /// EasyPost: https://support.easypost.com/hc/en-us/articles/4402863879437-Common-FedEx-Error-COMMERCIAL-INVOICE-requires-an-electronic-LETTER-HEAD-
+        /// FedEx Country List: http://images.fedex.com/images/canada/services/international/customsforms/documents/Commercial_Invoice_Customs_Regulatory_Compliance.pdf
+        /// </summary>
+        public string? CommercialInvoiceSignature { get; set; }
 
         /// <summary>
         /// Cost center
